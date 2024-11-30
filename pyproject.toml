@@ -1,0 +1,22 @@
+[project]
+name = "mcp-server-opensearch"
+version = "0.1.0"
+description = "A MCP server project"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+ "httpx>=0.28.0",
+ "mcp>=1.0.0",
+ "opensearch-py>=2.8.0",
+ "python-dotenv>=1.0.1",
+]
+[[project.authors]]
+name = "Gowtham Sai"
+email = "66207607+gowtham3105@users.noreply.github.com"
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project.scripts]
+mcp-server-opensearch = "mcp_server_opensearch:main"
