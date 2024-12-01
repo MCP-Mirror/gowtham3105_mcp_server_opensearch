@@ -1,4 +1,3 @@
-
 from mcp.server.models import InitializationOptions
 import mcp.types as types
 from mcp.server import NotificationOptions, Server
@@ -26,13 +25,16 @@ async def handle_list_tools() -> list[types.Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "body": {"type": "object"},
-                    "offset": {"type": "integer", "minimum": 0},
-                    "size": {"type": "integer", "minimum": 0, "maximum": 10000},
-                    "index_pattern": {"type": "string"},
-                    "sort": {"type": "array"},
+                    "body": {"type": "object", "description": "Query body following OpenSearch Query DSL"},
+                    "index_pattern":
+                        {"type": "string",
+                         "description": "Comma-separated list of data streams, indexes,"
+                                        " and aliases to search. Supports wildcards (`*`)."
+                                        " To search all data streams and indexes, omit this parameter "
+                                        "or use `*` or `_all`."},
+                    "routing": {"type": "string", "description": "Routing value for the query"}
                 },
-                "required": ["query"],
+                "required": ["body"],
             },
         )
     ]
@@ -63,7 +65,7 @@ async def main():
                 server_name="mcp-server-opensearch",
                 server_version="0.1.0",
                 capabilities=server.get_capabilities(
-                    notification_options=NotificationOptions(),
+                    notification_options=NotificationOptions(tools_changed=True),
                     experimental_capabilities={},
                 ),
             ),

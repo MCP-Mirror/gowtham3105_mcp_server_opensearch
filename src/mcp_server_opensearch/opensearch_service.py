@@ -20,9 +20,7 @@ def search(search_query: SearchQuery) -> SearchResponse:
     response = client.search(
         index=search_query.index_pattern,
         body=search_query.body,
-        from_=search_query.offset,
-        size=search_query.size,
-        sort=search_query.sort
+        routing=search_query.routing
     )
 
     return response

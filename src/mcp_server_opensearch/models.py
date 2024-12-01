@@ -19,10 +19,8 @@ class OperationStatus(str, Enum):
 class SearchQuery(BaseModel):
     """Search query parameters following OpenSearch Query DSL"""
     body: Dict[str, Any]
-    offset: int = Field(default=0, alias="from")
-    size: int = Field(default=10, ge=0, le=10000)  # Adding validation
     index_pattern: str = Field(default="*")  # Default to all indices
-    sort: Optional[List[Dict[str, Any]]] = None
+    routing: Optional[str] = None
 
 
 class Document(BaseModel):
