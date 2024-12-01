@@ -4,7 +4,7 @@ from mcp_server_opensearch.models import SearchQuery, SearchResponse
 from opensearchpy import OpenSearch
 
 client = OpenSearch(
-    hosts=[{'host': os.getenv('OPENSEARCH_HOST', 'localhost'), 'port': os.getenv('OPENSEARCH_PORT', 9200)}],
+    hosts=[os.getenv('OPENSEARCH_URL', 'localhost:9200')],
     http_auth=(os.getenv('OPENSEARCH_USER', 'admin'), os.getenv('OPENSEARCH_PASSWORD', 'admin')),
     use_ssl=True,
     verify_certs=False,
