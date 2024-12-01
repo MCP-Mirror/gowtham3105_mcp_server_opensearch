@@ -16,9 +16,9 @@ def handle_search(arguments: dict) -> list[TextContent]:
 
     return [
         types.TextContent(
-            text=json.dumps(results, indent=2),
-            contentType="text/plain"
-        ),
+            type="text",
+            text=json.dumps(results, indent=2)
+        )
     ]
 
 
