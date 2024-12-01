@@ -26,10 +26,10 @@ async def handle_list_tools() -> list[types.Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {
-                    "query": {"type": "object"},
+                    "body": {"type": "object"},
                     "offset": {"type": "integer", "minimum": 0},
                     "size": {"type": "integer", "minimum": 0, "maximum": 10000},
-                    "indexPattern": {"type": "string"},
+                    "index_pattern": {"type": "string"},
                     "sort": {"type": "array"},
                 },
                 "required": ["query"],
@@ -48,7 +48,7 @@ async def handle_call_tool(
     """
     match name:
         case Tools.SEARCH:
-            return await handle_search(arguments)
+            return handle_search(arguments)
         case _:
             raise ValueError(f"Unknown tool: {name}")
 

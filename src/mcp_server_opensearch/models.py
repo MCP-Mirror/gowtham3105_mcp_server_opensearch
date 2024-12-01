@@ -10,7 +10,6 @@ class Tools(str, Enum):
     SEARCH = "search"
 
 
-
 class OperationStatus(str, Enum):
     SUCCESS = "success"
     FAILED = "failed"
@@ -19,14 +18,11 @@ class OperationStatus(str, Enum):
 # Base Models for Request/Response
 class SearchQuery(BaseModel):
     """Search query parameters following OpenSearch Query DSL"""
-    query: Dict[str, Any]
+    body: Dict[str, Any]
     offset: int = Field(default=0, alias="from")
     size: int = Field(default=10, ge=0, le=10000)  # Adding validation
-    indexPattern: str = Field(default="*")  # Default to all indices
+    index_pattern: str = Field(default="*")  # Default to all indices
     sort: Optional[List[Dict[str, Any]]] = None
-
-
-
 
 
 class Document(BaseModel):

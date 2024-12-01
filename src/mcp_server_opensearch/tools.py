@@ -3,30 +3,30 @@ from mcp_server_opensearch.opensearch_service import search as search_documents
 
 
 def handle_search(arguments: dict) -> SearchResponse:
-    query = arguments.get("query", {})
+    body = arguments.get("body", {})
     offset = arguments.get("offset", 0)
     size = arguments.get("size", 10)
-    indexPattern = arguments.get("indexPattern", "*")
+    index_pattern = arguments.get("index_pattern", "*")
     sort = arguments.get("sort", [])
     page = arguments.get("page", 1)
     per_page = arguments.get("per_page", 10)
 
     # Call the search function
-    results = search(query, offset, size, indexPattern, sort, page, per_page)
+    results = search(body, offset, size, index_pattern, sort, page, per_page)
 
     return results
 
 
-def search(query: dict, offset: int, size: int, indexPattern: str, sort: list, page: int, per_page: int):
+def search(body: dict, offset: int, size: int, index_pattern: str, sort: list, page: int, per_page: int):
     """
     Search for a query in the database and return the results.
     """
 
     search_query = SearchQuery(
-        query=query,
+        body=body,
         offset=offset,
         size=size,
-        indexPattern=indexPattern,
+        index_pattern=index_pattern,
         sort=sort
     )
 

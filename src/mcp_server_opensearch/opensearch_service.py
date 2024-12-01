@@ -17,16 +17,9 @@ def search(search_query: SearchQuery) -> SearchResponse:
     Search for a query in the database and return the results.
     """
 
-    client.search(
-        index=search_query.indexPattern,
-        body=search_query.query,
-        from_=search_query.offset,
-        size=search_query.size,
-        sort=search_query.sort
-    )
     response = client.search(
-        index=search_query.indexPattern,
-        body=search_query.query,
+        index=search_query.index_pattern,
+        body=search_query.body,
         from_=search_query.offset,
         size=search_query.size,
         sort=search_query.sort
