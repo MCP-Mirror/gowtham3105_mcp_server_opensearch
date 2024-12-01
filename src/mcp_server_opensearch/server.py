@@ -2,12 +2,9 @@ from mcp.server.models import InitializationOptions
 import mcp.types as types
 from mcp.server import NotificationOptions, Server
 import mcp.server.stdio
-from mcp_server_opensearch.tools import handle_search
+from mcp_server_opensearch.tools import handle_search, handle_get_indexes
 
 from mcp_server_opensearch.models import Tools
-
-# Store notes as a simple key-value dict to demonstrate state management
-notes: dict[str, str] = {}
 
 server = Server("mcp-server-opensearch")
 
@@ -37,6 +34,20 @@ async def handle_list_tools() -> list[types.Tool]:
                 "required": ["body"],
             },
         ),
+        types.Tool(
+            name=Tools.GET_INDICES,
+            description="Get information about all indices in the opensearch cluster.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "index_pattern":
+                        {"type": "string",
+                         "description": "Comma-separated list of data streams, indexes, and "
+                                        "index aliases used to limit the request. Wildcard expressions (*) are "
+                                        "supported."},
+                },
+            }
+        )
 
     ]
 
@@ -52,6 +63,8 @@ async def handle_call_tool(
     match name:
         case Tools.SEARCH:
             return handle_search(arguments)
+        case Tools.GET_INDICES:
+            return handle_get_indexes(arguments)
         case _:
             raise ValueError(f"Unknown tool: {name}")
 

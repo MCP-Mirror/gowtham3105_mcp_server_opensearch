@@ -3,7 +3,7 @@ from mcp import types
 from mcp.types import TextContent
 
 from mcp_server_opensearch.models import SearchQuery, SearchResponse
-from mcp_server_opensearch.opensearch_service import search as search_documents
+from mcp_server_opensearch.opensearch_service import search as search_documents, get_indexes
 
 
 def handle_search(arguments: dict) -> list[TextContent]:
@@ -13,6 +13,23 @@ def handle_search(arguments: dict) -> list[TextContent]:
 
     # Call the search function
     results = search(body, index_pattern, routing)
+
+    return [
+        types.TextContent(
+            type="text",
+            text=json.dumps(results, indent=2)
+        )
+    ]
+
+
+def handle_get_indexes(arguments: dict) -> list[TextContent]:
+    """
+    Get information about indexes in open search cluster.
+    """
+    index_pattern = arguments.get("index_pattern", "*")
+
+    # Call the list indices function
+    results = get_indexes(index_pattern)
 
     return [
         types.TextContent(

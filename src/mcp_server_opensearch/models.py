@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 
 class Tools(str, Enum):
     SEARCH = "search"
+    GET_INDICES = "get_indices"
 
 
 class OperationStatus(str, Enum):

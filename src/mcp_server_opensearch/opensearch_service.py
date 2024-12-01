@@ -24,3 +24,13 @@ def search(search_query: SearchQuery) -> SearchResponse:
     )
 
     return response
+
+
+def get_indexes(index_pattern: str) -> dict:
+    """
+    Get information about indexes in open search cluster.
+    """
+
+    response = client.indices.get(index=index_pattern)
+
+    return response
