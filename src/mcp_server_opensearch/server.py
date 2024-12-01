@@ -20,7 +20,7 @@ async def handle_list_tools() -> list[types.Tool]:
     """
     return [
         types.Tool(
-            name="search",
+            name=Tools.SEARCH,
             description="Search for a query in the opensearch and return the results.",
             inputSchema={
                 "type": "object",
@@ -36,7 +36,8 @@ async def handle_list_tools() -> list[types.Tool]:
                 },
                 "required": ["body"],
             },
-        )
+        ),
+
     ]
 
 
